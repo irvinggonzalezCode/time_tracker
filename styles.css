@@ -10,4 +10,5 @@ body {
 p {
   border: 2px solid rgb(80, 170, 255);
   border-radius: 5px;
+  background-color: rgb(211, 211, 211);
 }
