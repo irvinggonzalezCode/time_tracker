@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="add_task.js" defer></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,31 @@
 <body>
 
   <main>
-    <section id="hero">
-      <h2>Time Tracker App</h2>
+    <section id="time-tracker-app">
+      <h1 id="today-title">Time Tracker App</h1>
        <!-- 1. Create a new Date object containing the current date and time -->
       <p>Today's Date: <span id="current-date"></span></p>
+ 
+      <table class="time-tracker-table">
+        <tr>
+          <th>Action</th>
+          <th>Time</th>
+          <th>Comments</th>
+        </tr>
+        <tr>
+          <td>Start Work</td>
+          <td>09:00 AM</td>
+          <td>Started working on project X</td>
+      </table>
+
+      <div class="task-list">
+        <h2>Task List</h2>
+        <button id="add-task" onclick="addTask()">Add Task</button>
+        <button id="remove-task" onclick="removeTask()">Remove Task</button>
+        <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
+        <button id="stop-timer" onclick="stopTimer()">Stop Timer For Task</button>
+      </div>
+
     </section>
 
  <script>
@@ -30,6 +52,27 @@
   <footer>
     <p>&copy; 2026 Time Tracker. All rights reserved.</p>
   </footer>
+
+<!-- Modal Dialog -->
+<dialog id="task-modal">
+  <form id="task-form" method="dialog">
+    <h2>Add New Task</h2>
+    
+    <label for="task-action">Action:</label>
+    <input type="text" id="task-action" required placeholder="e.g. Coding">
+
+    <label for="task-time">Time:</label>
+    <input type="text" id="task-time" required placeholder="e.g. 09:00 AM">
+
+    <label for="task-comments">Comments:</label>
+    <input type="text" id="task-comments" placeholder="e.g. Started working on project X">
+
+    <div class="modal-buttons">
+      <button type="submit" id="save-task-btn">Save</button>
+      <button type="button" id="close-modal-btn">Cancel</button>
+    </div>
+  </form>
+</dialog>
 
 </body>
 </html>

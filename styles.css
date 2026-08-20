@@ -1,6 +1,10 @@
 h1 {
-    color: rgb(255, 255, 255);
-    font-size: 24px;
+  color: rgb(255, 255, 255);
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 body {
@@ -8,7 +12,137 @@ body {
 }
 
 p {
-  border: 2px solid rgb(80, 170, 255);
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+  border: 4px solid rgb(80, 170, 255);
   border-radius: 5px;
   background-color: rgb(211, 211, 211);
 }
+
+/* Style for the table */
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/* Style for the table rows */
+tr:nth-child(1) {
+  background-color: #bebebe(63.284deg 8.38% 16.907%);
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr:nth-child(odd) {
+  background-color: #6b6b6b;
+}
+
+/*Button Stytles*/
+/* Container styling */
+.task-list {
+  display: flex;
+  flex-wrap: wrap;             /* Allows buttons to wrap gracefully on smaller screens */
+  justify-content: space-between; /* Evenly distributes buttons across the row */
+  align-items: center;          /* Aligns buttons vertically */
+  gap: 12px;                   /* Adds spacing if they wrap */
+  background-color: #1e293b;   /* Dark contrast background (adjust as needed) */
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* Forces the <h2> heading to span the full top row */
+.task-list h2 {
+  width: 100%;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* Button styling to make them look uniform */
+.task-list button {
+  flex: 1;                     /* Gives each button equal width */
+  min-width: 140px;            /* Prevents buttons from squishing too small */
+  padding: 10px 16px;
+  background-color: #50aaff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover state for buttons */
+.task-list button:hover {
+  background-color: #3b82f6;
+}
+
+
+
+/* Modal Styling */
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 24px;
+  background-color: #1e293b;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 90%;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+}
+
+#task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#task-form input {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#save-task-btn {
+  background-color: #50aaff;
+  color: white;
+}
+
+#close-modal-btn {
+  background-color: #64748b;
+  color: white;
+}
+
+
+
