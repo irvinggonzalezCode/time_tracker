@@ -5,74 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+
+  <!-- 1. Create a new Date object containing the current date and time -->
+  <p>Today's Date: <span id="current-date"></span></p>
+
 </head>
 <body>
 
-  <header>
-    <h1>Jane Doe</h1>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
   <main>
     <section id="hero">
-      <h2>Hello, I am Jane Doe</h2>
-      <p>I build clean and useful things for the web.</p>
-      <a href="#projects">View My Work</a>
+      <h2>Time Tracker App</h2>
     </section>
 
-    <section id="about">
-      <h2>About Me</h2>
-      <p>I am a front-end developer who loves writing semantic code and learning new tools. I focus on making websites fast and easy for everyone to use.</p>
-    </section>
+ <script>
+        // 2. Create a new Date object containing the current date and time
+        const today = new Date();
 
-    <section id="projects">
-      <h2>Projects</h2>
-      
-      <article>
-        <h3>Project One</h3>
-        <p>A web app that helps users track their daily tasks and set personal goals.</p>
-        <a href="#">View Code</a> | <a href="#">Live Demo</a>
-      </article>
+        // 3. Format the date into a readable local string
+        const formattedDate = today.toLocaleDateString();
 
-      <article>
-        <h3>Project Two</h3>
-        <p>An interactive weather dashboard that shows live data for any city.</p>
-        <a href="#">View Code</a> | <a href="#">Live Demo</a>
-      </article>
-
-      <article>
-        <h3>Project Three</h3>
-        <p>A clean portfolio template built with HTML and modern layout tools.</p>
-        <a href="#">View Code</a> | <a href="#">Live Demo</a>
-      </article>
-    </section>
-
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <p>Do you want to work together? Send me a message.</p>
-      <form>
-        <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-          <label for="message">Message:</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
-        </div>
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
-  </main>
+        // 4. Inject the formatted date into the HTML span tag
+        document.getElementById("current-date").textContent = formattedDate;
+  </script>
 
   <footer>
     <p>&copy; 2026 Time Tracker. All rights reserved.</p>
