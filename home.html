@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="add_task.js" defer></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Developer Portfolio</title>
   <link rel="stylesheet" href="styles.css">
-
+  <script src="add_task.js" defer></script>
 </head>
 <body>
 
@@ -35,7 +34,6 @@
         <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
         <button id="stop-timer" onclick="stopTimer()">Stop Timer For Task</button>
       </div>
-
     </section>
 
  <script>
@@ -62,13 +60,13 @@
     <input type="text" id="task-action" required placeholder="e.g. Coding">
 
     <label for="task-time">Time:</label>
-    <input type="text" id="task-time" required placeholder="e.g. 09:00 AM">
+    <input type="time" id="task-time" required placeholder="e.g. 09:00 AM">
 
     <label for="task-comments">Comments:</label>
     <input type="text" id="task-comments" placeholder="e.g. Started working on project X">
 
     <div class="modal-buttons">
-      <button type="submit" id="save-task-btn">Save</button>
+      <button type="button" id="save-task-btn">Save</button>
       <button type="button" id="close-modal-btn">Cancel</button>
     </div>
   </form>
