@@ -20,4 +20,5 @@ saveModalButton.addEventListener("click", function() {
     const taskStartTime = document.getElementById("task-time").value;
     const taskDescription = document.getElementById("task-comments").value;
     alert("task  name = " + taskAction + " time = " + taskStartTime + " , task description = " + taskDescription);
+    console.log("me awesome")
 });
