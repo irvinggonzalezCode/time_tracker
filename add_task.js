@@ -11,15 +11,31 @@ function addTask() {
     modal.showModal();
 }
 
-// add task from modal menu 
+// close add task popup from modal menu 
 closeModalButton.addEventListener("click", function() {
     modal.close();
 });
 
+//Submit Task Button
 saveModalButton.addEventListener("click", function() {
+
     const taskAction = document.getElementById("task-action").value;
     const taskStartTime = document.getElementById("task-time").value;
+    const taskEndTime = document.getElementById("task-end-time").value;
     const taskDescription = document.getElementById("task-comments").value;
-    alert("task  name = " + taskAction + " time = " + taskStartTime + " , task description = " + taskDescription);
-    console.log("me awesome")
+    console.log("task end time = " + taskEndTime);
+    console.log("task start time = " + taskStartTime);
+
+    const intStartTime = (taskStartTime.split(":")[0] * 60) + parseInt(taskStartTime.split(":")[1]);
+    console.log("Start time = " + intStartTime);
+    const intEndTime = (taskEndTime.split(":")[0] * 60) + parseInt(taskEndTime.split(":")[1]);
+    console.log("End time = " + intEndTime);
+    const taskduration = intEndTime - intStartTime;
+    console.log("Duration in minutes = " + taskduration);
+
+    if (intEndTime <= intStartTime) {
+        alert("End task time can not be earlier than the start time.");
+        } else {
+                modal.close();
+            }
 });
