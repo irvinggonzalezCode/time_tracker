@@ -7,10 +7,13 @@ const durationTxt = document.getElementById("duration-text")
 const taskStartTimeField = document.getElementById("task-time");
 const taskEndTimeField = document.getElementById("task-end-time");
 
-const taskStartTime = document.getElementById("task-time").value;
-const taskEndTime = document.getElementById("task-end-time").value;
-const taskAction = document.getElementById("task-action").value;
-const taskDescription = document.getElementById("task-comments").value;
+var taskStartTime = document.getElementById("task-time").value;
+var taskEndTime = document.getElementById("task-end-time").value;
+var taskAction = document.getElementById("task-action").value;
+var taskDescription = document.getElementById("task-comments").value;
+var addTaskBool = false;
+
+const now = new Date();
 
 
 //Logic for shwoing the dispaly
@@ -28,30 +31,52 @@ taskStartTimeField.addEventListener("input", updateDuration);
 taskEndTimeField.addEventListener("input", updateDuration);
 
 function updateDuration() {
-
+    calculateDuration();
+    console.log("updateDuration");
 }
 
 
 function calculateDuration() {
+
+    taskStartTime = document.getElementById("task-time").value;
+    taskEndTime = document.getElementById("task-end-time").value;
     const intStartTime = (taskStartTime.split(":")[0] * 60) + parseInt(taskStartTime.split(":")[1]);
     console.log("Start time = " + intStartTime);
     const intEndTime = (taskEndTime.split(":")[0] * 60) + parseInt(taskEndTime.split(":")[1]);
     console.log("End time = " + intEndTime);
     const taskduration = intEndTime - intStartTime;
     console.log("Duration in minutes = " + taskduration);
+    if (intEndTime <= intStartTime || !intStartTime || !intEndTime) {
+            addTaskBool = false;
+            return null;
+        } 
+    else if (taskduration > 0) {           
+            durationTxt.textContent = taskduration + " minutes";
+            addTaskBool = true;
+            return taskduration;
+            }
 }
 
 //Submit Task Button
 saveModalButton.addEventListener("click", function() {
-    console.log("task end time = " + taskEndTime);
-    console.log("task start time = " + taskStartTime);
 
-    
+    taskStartTime = document.getElementById("task-time").value;
+    taskEndTime = document.getElementById("task-end-time").value;
+    taskAction = document.getElementById("task-action").value;
+    taskDescription = document.getElementById("task-comments").value;
 
-    if (intEndTime <= intStartTime) {
-        alert("End task time can not be earlier than the start time.");
-        } else {
-                durationTxt.textContent = taskduration + " minutes";
-                modal.close();
-            }
+    const duration = calculateDuration();
+
+    console.log(now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }));
+    console.log("Task action " + taskAction + " , Description " + taskDescription + " , duration " + duration + " , addTaskBool " + addTaskBool);
+    console.log(taskAction);
+    if (addTaskBool && taskAction) {
+        durationTxt.textContent = "Duration";
+        
+        modal.close();
+    } else {
+            saveModalButton.classList.add("error");
+            console.log("Not adding task");
+    }
+
 });

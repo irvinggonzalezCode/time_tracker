@@ -14,6 +14,14 @@
       <h1 id="today-title">Time Tracker App</h1>
        <!-- 1. Create a new Date object containing the current date and time -->
       <p>Today's Date: <span id="current-date"></span></p>
+
+      <div class="task-list">
+        <h2>Task List</h2>
+        <button id="add-task" onclick="addTask()">Add Task</button>
+        <button id="remove-task" onclick="removeTask()">Remove Task</button>
+        <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
+        <button id="stop-timer" onclick="stopTimer()">Stop Timer For Task</button>
+      </div>
  
       <table class="time-tracker-table" id="task-tracker">
         <thead>
@@ -25,7 +33,7 @@
             <th>Comments</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="task-rows">
           <tr>
             <td>Start Work</td>
             <td>09:00 AM</td>
@@ -36,13 +44,7 @@
         </tbody>
       </table>
 
-      <div class="task-list">
-        <h2>Task List</h2>
-        <button id="add-task" onclick="addTask()">Add Task</button>
-        <button id="remove-task" onclick="removeTask()">Remove Task</button>
-        <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
-        <button id="stop-timer" onclick="stopTimer()">Stop Timer For Task</button>
-      </div>
+      
     </section>
 
  <script>

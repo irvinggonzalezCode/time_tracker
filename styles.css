@@ -139,9 +139,17 @@ dialog::backdrop {
   color: white;
 }
 
+#save-task-btn.error {
+  background-color: #e04545;
+}
+
 #close-modal-btn {
   background-color: #64748b;
   color: white;
+}
+
+#task-form label.error {
+  color: #e04545;
 }
 
 
