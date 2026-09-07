@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,13 @@
   <link rel="stylesheet" href="styles.css">
   <script src="add_task.js" defer></script>
 </head>
+
 <body>
 
   <main>
     <section id="time-tracker-app">
       <h1 id="today-title">Time Tracker App</h1>
-       <!-- 1. Create a new Date object containing the current date and time -->
+      <!-- 1. Create a new Date object containing the current date and time -->
       <p>Today's Date: <span id="current-date"></span></p>
 
       <div class="task-list">
@@ -22,7 +24,7 @@
         <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
         <button id="stop-timer" onclick="stopTimer()">Stop Timer For Task</button>
       </div>
- 
+
       <table class="time-tracker-table" id="task-tracker">
         <thead>
           <tr>
@@ -44,49 +46,50 @@
         </tbody>
       </table>
 
-      
+
     </section>
 
- <script>
-        // 2. Create a new Date object containing the current date and time
-        const today = new Date();
+    <script>
+      // 2. Create a new Date object containing the current date and time
+      const today = new Date();
 
-        // 3. Format the date into a readable local string
-        const formattedDate = today.toLocaleDateString();
+      // 3. Format the date into a readable local string
+      const formattedDate = today.toLocaleDateString();
 
-        // 4. Inject the formatted date into the HTML span tag
-        document.getElementById("current-date").textContent = formattedDate;
-  </script>
+      // 4. Inject the formatted date into the HTML span tag
+      document.getElementById("current-date").textContent = formattedDate;
+    </script>
 
-  <footer>
-    <p>&copy; 2026 Time Tracker. All rights reserved.</p>
-  </footer>
+    <footer>
+      <p>&copy; 2026 Time Tracker. All rights reserved.</p>
+    </footer>
 
-<!-- Modal Dialog -->
-<dialog id="task-modal">
-  <form id="task-form" method="dialog">
-    <h2>Add New Task</h2>
-    
-    <label for="task-action">Action:</label>
-    <input type="text" id="task-action" required placeholder="e.g. Coding">
+    <!-- Modal Dialog -->
+    <dialog id="task-modal">
+      <form id="task-form" method="dialog">
+        <h2>Add New Task</h2>
 
-    <label for="task-time">Start Time:</label>
-    <input type="time" id="task-time" required placeholder="e.g. 09:00 AM">
+        <label for="task-action">Action:</label>
+        <input type="text" id="task-action" required placeholder="e.g. Coding">
 
-    <label for="task-end-time">End Time:</label>
-    <input type="time" id="task-end-time" required placeholder="e.g. 12:00 PM">
+        <label for="task-time">Start Time:</label>
+        <input type="time" id="task-time" required placeholder="e.g. 09:00 AM">
 
-    <p id="duration-text">Duration</p>
+        <label for="task-end-time">End Time:</label>
+        <input type="time" id="task-end-time" required placeholder="e.g. 12:00 PM">
 
-    <label for="task-comments">Comments:</label>
-    <input type="text" id="task-comments" placeholder="e.g. Started working on project X">
+        <p id="duration-text">Duration</p>
 
-    <div class="modal-buttons">
-      <button type="button" id="save-task-btn">Save</button>
-      <button type="button" id="close-modal-btn">Cancel</button>
-    </div>
-  </form>
-</dialog>
+        <label for="task-comments">Comments:</label>
+        <input type="text" id="task-comments" placeholder="e.g. Started working on project X">
+
+        <div class="modal-buttons">
+          <button type="button" id="save-task-btn">Save</button>
+          <button type="button" id="close-modal-btn">Cancel</button>
+        </div>
+      </form>
+    </dialog>
 
 </body>
+
 </html>
