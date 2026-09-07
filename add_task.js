@@ -69,25 +69,25 @@ saveModalButton.addEventListener("click", function () {
   );
   console.log(
     "Task action " +
-    taskAction +
-    " , Description " +
-    taskDescription +
-    " , duration " +
-    duration +
-    " , addTaskBool " +
-    addTaskBool,
+      taskAction +
+      " , Description " +
+      taskDescription +
+      " , duration " +
+      duration +
+      " , addTaskBool " +
+      addTaskBool,
   );
   console.log(taskAction);
   if (addTaskBool && taskAction) {
-    console.log("Task data good, adding row logic")
-    
+    console.log("Task data good, adding row logic");
+
     //get reference to the table body (tbody)
     const tableBody = document.getElementById("task-tracker");
 
-    //insert a new empty row (<tr>) at the end of the body 
+    //insert a new empty row (<tr>) at the end of the body
     const newRow = tableBody.insertRow(-1);
 
-    // insert new cells (<td>) into the new row 
+    // insert new cells (<td>) into the new row
     const cell1 = newRow.insertCell(0);
     const cell2 = newRow.insertCell(1);
     const cell3 = newRow.insertCell(2);
