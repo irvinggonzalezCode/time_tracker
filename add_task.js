@@ -3,6 +3,14 @@ const modal = document.getElementById("task-modal");
 const openModalButton = document.getElementById("add-task");
 const closeModalButton = document.getElementById("close-modal-btn");
 const saveModalButton = document.getElementById("save-task-btn")
+const durationTxt = document.getElementById("duration-text")
+const taskStartTimeField = document.getElementById("task-time");
+const taskEndTimeField = document.getElementById("task-end-time");
+
+const taskStartTime = document.getElementById("task-time").value;
+const taskEndTime = document.getElementById("task-end-time").value;
+const taskAction = document.getElementById("task-action").value;
+const taskDescription = document.getElementById("task-comments").value;
 
 
 //Logic for shwoing the dispaly
@@ -16,26 +24,34 @@ closeModalButton.addEventListener("click", function() {
     modal.close();
 });
 
-//Submit Task Button
-saveModalButton.addEventListener("click", function() {
+taskStartTimeField.addEventListener("input", updateDuration);
+taskEndTimeField.addEventListener("input", updateDuration);
 
-    const taskAction = document.getElementById("task-action").value;
-    const taskStartTime = document.getElementById("task-time").value;
-    const taskEndTime = document.getElementById("task-end-time").value;
-    const taskDescription = document.getElementById("task-comments").value;
-    console.log("task end time = " + taskEndTime);
-    console.log("task start time = " + taskStartTime);
+function updateDuration() {
 
+}
+
+
+function calculateDuration() {
     const intStartTime = (taskStartTime.split(":")[0] * 60) + parseInt(taskStartTime.split(":")[1]);
     console.log("Start time = " + intStartTime);
     const intEndTime = (taskEndTime.split(":")[0] * 60) + parseInt(taskEndTime.split(":")[1]);
     console.log("End time = " + intEndTime);
     const taskduration = intEndTime - intStartTime;
     console.log("Duration in minutes = " + taskduration);
+}
+
+//Submit Task Button
+saveModalButton.addEventListener("click", function() {
+    console.log("task end time = " + taskEndTime);
+    console.log("task start time = " + taskStartTime);
+
+    
 
     if (intEndTime <= intStartTime) {
         alert("End task time can not be earlier than the start time.");
         } else {
+                durationTxt.textContent = taskduration + " minutes";
                 modal.close();
             }
 });
