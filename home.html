@@ -7,6 +7,7 @@
   <title>Developer Portfolio</title>
   <link rel="stylesheet" href="styles.css">
   <script src="add_task.js" defer></script>
+  <script src="timer_task.js" defer></script>
 </head>
 
 <body>
@@ -22,7 +23,21 @@
         <button id="add-task" onclick="addTask()">Add Task</button>
         <button id="remove-task" onclick="removeTask()">Remove Task</button>
         <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
-        <button id="stop-timer" onclick="stopTimer()">Stop Timer For Task</button>
+      </div>
+
+      <!--Timer UI Element-->
+      <div id="active-timer" class="active-timer" hidden>
+        <span class="active-timer__pulse" aria-hidden="true"></span>
+
+        <div class="active-timer__info">
+          <p class="active-timer__action" id="active-timer-action">Untitled task</p>
+          <p class="active-timer__since" id="active-timer-since">Started 00:00 AM</p>
+        </div>
+
+        <p class="active-timer__elapsed" id="active-timer-elapsed">00:00:00</p>
+        <button type="button" class="active-timer__stop" id="stop-timer" onclick="stopTimer()">
+          Stop
+        </button>
       </div>
 
       <table class="time-tracker-table" id="task-tracker">

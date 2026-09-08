@@ -84,7 +84,7 @@ h1 {
   margin: 0 0 4px;
   font-size: 13px;
   font-weight: 600;
-  color: #8fbecd;
+  color: rgb(253, 253, 253);
   text-align: left;
 }
 
@@ -303,4 +303,111 @@ dialog h2 {
   * {
     transition: none !important;
   }
+}
+
+
+/* ---------- Active timer ---------- */
+
+.active-timer {
+  /* Configure the panel from here */
+  --timer-accent:  var(--amber);
+  --timer-surface: rgba(255, 255, 255, 0.07);
+  --timer-size:    34px;   /* elapsed readout */
+  --timer-pulse:   2.4s;   /* breathing speed */
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  background-color: var(--timer-surface);
+  border: 1px solid var(--ground-line);
+  border-left: 3px solid var(--timer-accent);
+  border-radius: var(--radius);
+}
+
+.active-timer[hidden] {
+  display: none;
+}
+
+/* Live indicator */
+.active-timer__pulse {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background-color: var(--timer-accent);
+  border-radius: 50%;
+  animation: timer-pulse var(--timer-pulse) ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.8); }
+}
+
+.active-timer__info {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.active-timer__action {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.active-timer__since {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #8fbecd;
+  font-variant-numeric: tabular-nums;
+}
+
+.active-timer__elapsed {
+  margin: 0;
+  font-size: var(--timer-size);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--timer-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.active-timer__stop {
+  flex: none;
+  padding: 10px 20px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--red);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.active-timer__stop:hover {
+  background-color: #c04747;
+}
+
+.active-timer__stop:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Disabled controls in the main bar */
+.task-list button:disabled {
+  background-color: #2a5a6b;
+  color: #6b93a3;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active-timer__pulse { animation: none; }
 }

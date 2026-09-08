@@ -80,9 +80,8 @@ saveModalButton.addEventListener("click", function () {
   console.log(taskAction);
   if (addTaskBool && taskAction) {
     console.log("Task data good, adding row logic");
-
     //get reference to the table body (tbody)
-    const tableBody = document.getElementById("task-tracker");
+    const tableBody = document.getElementById("task-rows");
 
     //insert a new empty row (<tr>) at the end of the body
     const newRow = tableBody.insertRow(-1);
