@@ -1,54 +1,55 @@
+// Cached references to the DOM elements the timer controls.
+// These elements always exist on the page (they're not created/destroyed
+// while the app runs), so we only need to look them up once instead of
+// calling document.getElementById(...) again inside every function.
+const startTimerBtn = document.getElementById("start-timer");
+const stopTimerBtn = document.getElementById("stop-timer");
+const timerUI = document.getElementById("active-timer");
+const activeTimerSince = document.getElementById("active-timer-since");
+const activeTimerElapsed = document.getElementById("active-timer-elapsed");
+
+// Timer state, declared up front with `let` so it's never accidentally
+// created as an implicit global the first time a function assigns to it.
+let timerId = null;
+let startMs = null;
+
 function startTimer() {
-	let startTimerBtn = document.getElementById("start-timer");
-	let stopTimerBtn = document.getElementById("stop-timer");
-    let timerUI = document.getElementById("active-timer");
 	startTimerBtn.disabled = true;
 	stopTimerBtn.disabled = false;
-    timerUI.hidden = false;
-	console.log("Start Timer");
+	timerUI.hidden = false;
+
 	startMs = Date.now();
-	const date = new Date(startMs);
 	timerId = setInterval(tick, 1000);
 	tick();
-	const timerStartTxt = document.getElementById("active-timer-action");
-	const activeTimerSince = document.getElementById("active-timer-since");
 
-	const formattedTime = date.toLocaleTimeString("en-US", {
-		hour: "numeric",
-		minute: "2-digit",
-		hour12: true,
-	});
-
-	activeTimerSince.textContent = "Started " + formattedTime;
-
-	console.log("Timer Start at " + formattedTime + " , millis = " + startMs);
+	activeTimerSince.textContent = "Started " + formatClockTime(startMs);
+	console.log(
+		"Timer Start at " + formatClockTime(startMs) + " , millis = " + startMs,
+	);
 }
 
 function stopTimer() {
-    let timerUI = document.getElementById("active-timer");
-    timerUI.hidden = true;
+	timerUI.hidden = true;
 	clearInterval(timerId);
 	timerId = null;
-	let startTimerBtn = document.getElementById("start-timer");
-	let stopTimerBtn = document.getElementById("stop-timer");
+
 	startTimerBtn.disabled = false;
 	stopTimerBtn.disabled = true;
-	let stopMillis = Date.now();
-	const date = new Date(stopMillis);
-	const formattedTime = date.toLocaleTimeString("en-US", {
-		hour: "numeric",
-		minute: "2-digit",
-		hour12: true,
-	});
+
+	const stopMillis = Date.now();
 	console.log("Stop Timer Pressed");
-	console.log("Stop time = " + formattedTime + " , Stop Millis" + stopMillis);
+	console.log(
+		"Stop time = " +
+			formatClockTime(stopMillis) +
+			" , Stop Millis " +
+			stopMillis,
+	);
 }
 
 //Refreshes every 1000 ticks and updates the elapsed time
 function tick() {
 	const elapsedMs = Date.now() - startMs;
-	var elapsedTxt = document.getElementById("active-timer-elapsed");
-	elapsedTxt.textContent = formatElapsed(elapsedMs);
+	activeTimerElapsed.textContent = formatElapsed(elapsedMs);
 }
 
 //Formats millis time to easily readable string format
@@ -70,4 +71,15 @@ function formatElapsed(elapsedMs) {
 	if (parts.length === 0) return "0 seconds";
 
 	return parts.join(" ");
+}
+
+// Formats a millisecond timestamp into a clock string like "9:00 AM".
+// Both startTimer and stopTimer need this exact formatting, so it lives
+// here once instead of being copy-pasted in both places.
+function formatClockTime(millis) {
+	return new Date(millis).toLocaleTimeString("en-US", {
+		hour: "numeric",
+		minute: "2-digit",
+		hour12: true,
+	});
 }
