@@ -4,22 +4,33 @@
    ========================================================== */
 
 :root {
-  --ground:      #10495c;   /* page background */
-  --ground-deep: #0b3543;   /* controls bar, modal */
-  --ground-line: #1c6076;   /* borders on dark surfaces */
+  --ground: #10495c;
+  /* page background */
+  --ground-deep: #0b3543;
+  /* controls bar, modal */
+  --ground-line: #1c6076;
+  /* borders on dark surfaces */
 
-  --paper:       #ffffff;   /* table surface */
-  --paper-alt:   #eef3f5;   /* zebra stripe */
-  --ink:         #12333d;   /* body text on paper */
-  --ink-soft:    #587784;   /* secondary text */
+  --paper: #ffffff;
+  /* table surface */
+  --paper-alt: #eef3f5;
+  /* zebra stripe */
+  --ink: #12333d;
+  /* body text on paper */
+  --ink-soft: #587784;
+  /* secondary text */
 
-  --cyan:        #5cc3d9;   /* primary action */
-  --cyan-deep:   #3aa5bc;   /* hover */
-  --amber:       #eda252;   /* durations, focus ring */
-  --red:         #d95757;   /* validation */
+  --cyan: #5cc3d9;
+  /* primary action */
+  --cyan-deep: #3aa5bc;
+  /* hover */
+  --amber: #eda252;
+  /* durations, focus ring */
+  --red: #d95757;
+  /* validation */
 
-  --radius:      6px;
-  --shadow:      0 12px 30px rgba(4, 26, 34, 0.35);
+  --radius: 6px;
+  --shadow: 0 12px 30px rgba(4, 26, 34, 0.35);
 }
 
 * {
@@ -32,7 +43,7 @@ body {
   background-color: var(--ground);
   color: #eaf3f6;
   font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto,
-               "Helvetica Neue", Arial, sans-serif;
+    "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -54,7 +65,7 @@ h1 {
 
 /* Only the date line directly inside the section — not the footer,
    not the duration readout in the modal. */
-#time-tracker-app > p {
+#time-tracker-app>p {
   margin: 0 0 32px;
   color: #a9cfdb;
   font-size: 15px;
@@ -310,10 +321,12 @@ dialog h2 {
 
 .active-timer {
   /* Configure the panel from here */
-  --timer-accent:  var(--amber);
+  --timer-accent: var(--amber);
   --timer-surface: rgba(255, 255, 255, 0.07);
-  --timer-size:    34px;   /* elapsed readout */
-  --timer-pulse:   2.4s;   /* breathing speed */
+  --timer-size: 34px;
+  /* elapsed readout */
+  --timer-pulse: 2.4s;
+  /* breathing speed */
 
   display: flex;
   flex-wrap: wrap;
@@ -342,29 +355,79 @@ dialog h2 {
 }
 
 @keyframes timer-pulse {
-  0%, 100% { opacity: 1;   transform: scale(1); }
-  50%      { opacity: 0.4; transform: scale(0.8); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
 }
 
 .active-timer__info {
-  flex: 1 1 180px;
+  flex: 1 1 220px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* Shared behaviour for both editable fields */
+.active-timer__action,
+.active-timer__description {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 3px 8px;
+  font: inherit;
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  border-radius: 3px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .active-timer__action {
-  margin: 0;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
-  color: #ffffff;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.active-timer__description {
+  font-size: 13px;
+  font-weight: 400;
+  color: #b8d6e0;
+}
+
+.active-timer__action::placeholder,
+.active-timer__description::placeholder {
+  color: #5d8494;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.active-timer__action:hover,
+.active-timer__description:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.active-timer__action:focus,
+.active-timer__description:focus {
+  background-color: rgba(255, 255, 255, 0.09);
+  border-left-color: var(--timer-accent);
+  outline: none;
 }
 
 .active-timer__since {
-  margin: 2px 0 0;
-  font-size: 13px;
-  color: #8fbecd;
+  margin: 6px 0 0;
+  padding-left: 8px;
+  font-size: 12px;
+  color: #7ba8b8;
   font-variant-numeric: tabular-nums;
 }
 
@@ -409,5 +472,7 @@ dialog h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .active-timer__pulse { animation: none; }
+  .active-timer__pulse {
+    animation: none;
+  }
 }

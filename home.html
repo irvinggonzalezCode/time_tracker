@@ -12,7 +12,7 @@
 </head>
 
 <body>
-
+  <!--Main Task List Options Add Task, Remove Task, Start Timer Task-->
   <main>
     <section id="time-tracker-app">
       <h1 id="today-title">Time Tracker App</h1>
@@ -31,7 +31,12 @@
         <span class="active-timer__pulse" aria-hidden="true"></span>
 
         <div class="active-timer__info">
-          <p class="active-timer__action" id="active-timer-action">Untitled task</p>
+          <input type="text" class="active-timer__action" id="active-timer-action"
+            placeholder="What are you working on?" autocomplete="off">
+
+          <input type="text" class="active-timer__description" id="active-timer-description" placeholder="Edit Description"
+            autocomplete="off">
+
           <p class="active-timer__since" id="active-timer-since">Started 00:00 AM</p>
         </div>
 

@@ -31,29 +31,8 @@ taskStartTimeField.addEventListener("input", updateDuration);
 taskEndTimeField.addEventListener("input", updateDuration);
 
 function updateDuration() {
-	calculateDuration();
+  durationTxt.textContent = formatMinutesElapsed(calculateDuration(document.getElementById("task-time").value, document.getElementById("task-end-time").value));
 	console.log("updateDuration");
-}
-
-function calculateDuration() {
-	taskStartTime = document.getElementById("task-time").value;
-	taskEndTime = document.getElementById("task-end-time").value;
-	const intStartTime =
-		taskStartTime.split(":")[0] * 60 + parseInt(taskStartTime.split(":")[1]);
-	console.log("Start time = " + intStartTime);
-	const intEndTime =
-		taskEndTime.split(":")[0] * 60 + parseInt(taskEndTime.split(":")[1]);
-	console.log("End time = " + intEndTime);
-	const taskduration = intEndTime - intStartTime;
-	console.log("Duration in minutes = " + taskduration);
-	if (intEndTime <= intStartTime || !intStartTime || !intEndTime) {
-		addTaskBool = false;
-		return null;
-	} else if (taskduration > 0) {
-		durationTxt.textContent = taskduration + " minutes";
-		addTaskBool = true;
-		return taskduration;
-	}
 }
 
 //Submit Task Button
@@ -63,7 +42,8 @@ saveModalButton.addEventListener("click", function () {
 	taskAction = document.getElementById("task-action").value;
 	taskDescription = document.getElementById("task-comments").value;
 
-	const duration = calculateDuration();
+	const duration = calculateDuration(taskStartTime,taskEndTime);
+  durationTxt.textContent = formatMinutesElapsed(duration);
 
 	console.log(
 		now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
