@@ -22,18 +22,37 @@ const STORAGE_KEY = "tt.tasks";
 // numbers, so we can subtract them to get a duration.
 let tasks = [];
 
+// The day the table is currently showing. Defaults to today.
+let selectedDayMs = Date.now();
+
 // renderTasks — draw every task in `tasks` into the table
 // ------------------------------------------------------
 // We empty the table body first so a task can never show up
 // twice, then add one row per task. The five cells are built
 // in the same order as the column headers in the HTML.
 function renderTasks() {
+	//Gets the html element and clears it
 	const tableBody = document.getElementById("task-rows");
 	tableBody.innerHTML = "";
 
-	tasks.forEach(function (task) {
+	//filters by the isSameDay logic using 2 millis startMs and selectDayMs
+	const visibleTasks = tasks.filter(function (task) {
+		return isSameDay(task.startMs, selectedDayMs);
+	});
+
+	if (visibleTasks.length === 0) {
+		const row = tableBody.insertRow();
+		const cell = row.insertCell();
+		cell.colSpan = 5;
+		cell.textContent = "No tasks on this day.";
+		return;
+	}
+
+	//Loop html elment creation and populates the task list
+	visibleTasks.forEach(function (task) {
 		const row = tableBody.insertRow();
 
+		//Here is the data you would see inside of the task lists
 		const cells = [
 			task.action,
 			formatClock(task.startMs),
@@ -101,4 +120,8 @@ function loadTasks() {
 	}
 
 	renderTasks();
+}
+
+function isSameDay(millisA, millisB) {
+	return new Date(millisA).toDateString() === new Date(millisB).toDateString();
 }
