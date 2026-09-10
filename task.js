@@ -91,6 +91,10 @@ function removeLastTask() {
 	renderTasks();
 }
 
+function removeSelectedTask() {
+	
+}
+
 // saveTasks — copy the whole list into long-term browser storage
 // ----------------------------------------------------------
 // localStorage can only hold text, so we turn the list of
