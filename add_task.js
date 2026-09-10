@@ -31,7 +31,12 @@ taskStartTimeField.addEventListener("input", updateDuration);
 taskEndTimeField.addEventListener("input", updateDuration);
 
 function updateDuration() {
-  durationTxt.textContent = formatMinutesElapsed(calculateDuration(document.getElementById("task-time").value, document.getElementById("task-end-time").value));
+	durationTxt.textContent = formatMinutesElapsed(
+		calculateDuration(
+			document.getElementById("task-time").value,
+			document.getElementById("task-end-time").value,
+		),
+	);
 	console.log("updateDuration");
 }
 
@@ -42,8 +47,8 @@ saveModalButton.addEventListener("click", function () {
 	taskAction = document.getElementById("task-action").value;
 	taskDescription = document.getElementById("task-comments").value;
 
-	const duration = calculateDuration(taskStartTime,taskEndTime);
-  durationTxt.textContent = formatMinutesElapsed(duration);
+	const duration = calculateDuration(taskStartTime, taskEndTime);
+	durationTxt.textContent = formatMinutesElapsed(duration);
 
 	console.log(
 		now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
@@ -77,6 +82,8 @@ saveModalButton.addEventListener("click", function () {
 		const cell3 = newRow.insertCell(2);
 		const cell4 = newRow.insertCell(3);
 		const cell5 = newRow.insertCell(4);
+
+    tasks.push({ id, taskAction, taskStartTime, taskEndTime, taskDescription});
 
 		// Add content to the cells
 		cell1.textContent = taskAction;

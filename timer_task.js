@@ -32,7 +32,6 @@ function startTimer() {
 }
 
 function stopTimer() {
-
 	console.log("Stop Timer Pressed");
 	const actionInput = document.getElementById("active-timer-action");
 	var timerTaskName = "";
@@ -49,15 +48,15 @@ function stopTimer() {
 	stopTimerBtn.disabled = true;
 
 	if (timerDescription.trim() === "") {
-		timerDescription = "N/A"
+		timerDescription = "N/A";
 	}
 
-	if (actionInput.value.trim() ==="") {
+	if (actionInput.value.trim() === "") {
 		timerTaskName = "Task";
 	} else {
 		timerTaskName = actionInput.value;
 	}
-
+	let id = Date.now();
 	const stopMillis = Date.now();
 
 	console.log("TimerDuration " + formatStartStopMillis(startMs, stopMillis));
@@ -77,6 +76,8 @@ function stopTimer() {
 	const cell3 = newRow.insertCell(2);
 	const cell4 = newRow.insertCell(3);
 	const cell5 = newRow.insertCell(4);
+
+	tasks.push({ id, taskAction, taskStartTime, taskEndTime, taskDescription});
 
 	// Add content to the cells
 	cell1.textContent = timerTaskName;
