@@ -1,94 +1,86 @@
-// Cached references to the DOM elements the timer controls.
-// These elements always exist on the page (they're not created/destroyed
-// while the app runs), so we only need to look them up once instead of
-// calling document.getElementById(...) again inside every function.
+/* ============================================================
+   timer_task.js — the live stopwatch
+   ------------------------------------------------------------
+   "Start Timer For Task" shows a little panel and counts up
+   once a second. "Stop" hides the panel and turns the time you
+   measured into a finished task by calling addTask() in
+   task.js — the exact same door the popup uses.
+   ============================================================ */
+
+// The panel and its parts. They're always in the HTML, so we
+// look them up once here.
 const startTimerBtn = document.getElementById("start-timer");
 const stopTimerBtn = document.getElementById("stop-timer");
-const timerUI = document.getElementById("active-timer");
-const activeTimerSince = document.getElementById("active-timer-since");
-const activeTimerElapsed = document.getElementById("active-timer-elapsed");
-const activeTaskName = document.getElementById("active-timer__action");
-const actionInput = document.getElementById("active-timer-action");
+const timerPanel = document.getElementById("active-timer");
+const timerActionInput = document.getElementById("active-timer-action");
+const timerDescriptionInput = document.getElementById("active-timer-description");
+const timerSinceText = document.getElementById("active-timer-since");
+const timerElapsedText = document.getElementById("active-timer-elapsed");
 
-// Timer state, declared up front with `let` so it's never accidentally
-// created as an implicit global the first time a function assigns to it.
-let timerId = null;
-let startMs = null;
+// The timer's memory.
+//   intervalId   — the "ticket" setInterval hands back; we need
+//                  it later to switch the ticking off again.
+//   timerStartMs — the moment we pressed Start.
+// Both are null while the timer is NOT running.
+let intervalId = null;
+let timerStartMs = null;
 
+// startTimer — begin counting
+// ---------------------------
+// Remember the start moment, flip the buttons so you can't
+// start twice, reveal the panel, and put the cursor in the
+// "what are you working on?" box. We call tick() once right
+// away so it shows "0s" instead of a blank second, then ask
+// the browser to call tick() again every 1000ms.
 function startTimer() {
+	timerStartMs = Date.now();
+
 	startTimerBtn.disabled = true;
 	stopTimerBtn.disabled = false;
-	timerUI.hidden = false;
-	actionInput.focus();
+	timerPanel.hidden = false;
+	timerActionInput.focus();
 
-	startMs = Date.now();
-	timerId = setInterval(tick, 1000);
+	timerSinceText.textContent = "Started " + formatClock(timerStartMs);
 	tick();
-
-	activeTimerSince.textContent = "Started " + formatClockTime(startMs);
-	console.log(
-		"Timer Start at " + formatClockTime(startMs) + " , millis = " + startMs,
-	);
+	intervalId = setInterval(tick, 1000);
 }
 
+// tick — runs once per second while the timer is going
+// ---------------------------------------------------
+// Work out how long it's been (now minus the start moment) and
+// write that into the big elapsed-time readout.
+function tick() {
+	timerElapsedText.textContent = formatDuration(Date.now() - timerStartMs);
+}
+
+// stopTimer — stop counting and save the result as a task
+// -----------------------------------------------------
+//   1. If the timer wasn't running, do nothing.
+//   2. Switch the ticking off.
+//   3. Read the action + description (blank gets a default).
+//   4. Hand it to addTask(), which saves it and redraws the
+//      table — the same path the popup uses.
+//   5. Reset the panel and buttons back to their resting state.
 function stopTimer() {
-	console.log("Stop Timer Pressed");
-	const actionInput = document.getElementById("active-timer-action");
-	var timerTaskName = "";
-	var timerDescription = document.getElementById(
-		"active-timer-description",
-	).value;
-	console.log("Stop Timer - Action Name " + actionInput.value);
+	if (timerStartMs === null) return;
 
-	timerUI.hidden = true;
-	clearInterval(timerId);
-	timerId = null;
+	clearInterval(intervalId);
+	intervalId = null;
 
+	const endMs = Date.now();
+	const action = timerActionInput.value.trim() || "Task";
+	const comments = timerDescriptionInput.value.trim() || "N/A";
+
+	addTask({ action, startMs: timerStartMs, endMs, comments });
+
+	timerStartMs = null;
+	timerPanel.hidden = true;
+	timerActionInput.value = "";
+	timerDescriptionInput.value = "";
 	startTimerBtn.disabled = false;
 	stopTimerBtn.disabled = true;
-
-	if (timerDescription.trim() === "") {
-		timerDescription = "N/A";
-	}
-
-	if (actionInput.value.trim() === "") {
-		timerTaskName = "Task";
-	} else {
-		timerTaskName = actionInput.value;
-	}
-	let id = Date.now();
-	const stopMillis = Date.now();
-
-	console.log("TimerDuration " + formatStartStopMillis(startMs, stopMillis));
-	console.log(
-		"Stop time = " +
-			formatClockTime(stopMillis) +
-			" , Stop Millis " +
-			stopMillis,
-	);
-
-	//insert a new empty row (<tr>) at the end of the body
-	const newRow = taskTableBody.insertRow(-1);
-
-	// insert new cells (<td>) into the new row
-	const cell1 = newRow.insertCell(0);
-	const cell2 = newRow.insertCell(1);
-	const cell3 = newRow.insertCell(2);
-	const cell4 = newRow.insertCell(3);
-	const cell5 = newRow.insertCell(4);
-
-	tasks.push({ id, taskAction, taskStartTime, taskEndTime, taskDescription});
-
-	// Add content to the cells
-	cell1.textContent = timerTaskName;
-	cell2.textContent = formatClockTime(startMs);
-	cell3.textContent = formatClockTime(stopMillis);
-	cell4.textContent = formatStartStopMillis(startMs, stopMillis);
-	cell5.textContent = timerDescription;
 }
 
-//Refreshes every 1000 ticks and updates the elapsed time
-function tick() {
-	const elapsedMs = Date.now() - startMs;
-	activeTimerElapsed.textContent = formatElapsedSecond(elapsedMs);
-}
+// Connect the two buttons.
+startTimerBtn.addEventListener("click", startTimer);
+stopTimerBtn.addEventListener("click", stopTimer);

@@ -4,30 +4,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Portfolio</title>
+  <title>Time Tracker</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="add_task.js" defer></script>
-  <script src="timer_task.js" defer></script>
+
+  <!--
+    Load order matters. Every script uses `defer`, so they run
+    in this order AFTER the page has finished building:
+      helper.js       - the "make it pretty" tools
+      task.js         - the task list + save/load/draw
+      add_task.js     - the "Add Task" popup
+      timer_task.js   - the live stopwatch
+      main.js         - the "on" switch (runs everything)
+  -->
   <script src="helper.js" defer></script>
   <script src="task.js" defer></script>
+  <script src="add_task.js" defer></script>
+  <script src="timer_task.js" defer></script>
+  <script src="main.js" defer></script>
 </head>
 
 <body>
-  <!--Main Task List Options Add Task, Remove Task, Start Timer Task-->
   <main>
     <section id="time-tracker-app">
       <h1 id="today-title">Time Tracker App</h1>
-      <!-- 1. Create a new Date object containing the current date and time -->
       <p>Today's Date: <span id="current-date"></span></p>
 
+      <!-- Main actions: add a task by hand, undo the last one, or run a live timer -->
       <div class="task-list">
         <h2>Task List</h2>
-        <button id="add-task" onclick="addTask()">Add Task</button>
-        <button id="remove-task" onclick="removeTask()">Remove Task</button>
-        <button id="start-timer" onclick="startTimer()">Start Timer For Task</button>
+        <button id="add-task" type="button">Add Task</button>
+        <button id="remove-task" type="button">Remove Task</button>
+        <button id="start-timer" type="button">Start Timer For Task</button>
       </div>
 
-      <!--Timer UI Element-->
+      <!-- Live timer panel. Hidden until "Start Timer For Task" is pressed. -->
       <div id="active-timer" class="active-timer" hidden>
         <span class="active-timer__pulse" aria-hidden="true"></span>
 
@@ -41,12 +51,13 @@
           <p class="active-timer__since" id="active-timer-since">Started 00:00 AM</p>
         </div>
 
-        <p class="active-timer__elapsed" id="active-timer-elapsed">00:00:00</p>
-        <button type="button" class="active-timer__stop" id="stop-timer" onclick="stopTimer()">
+        <p class="active-timer__elapsed" id="active-timer-elapsed">0s</p>
+        <button type="button" class="active-timer__stop" id="stop-timer" disabled>
           Stop
         </button>
       </div>
 
+      <!-- Finished tasks. Rows are drawn by renderTasks() in task.js. -->
       <table class="time-tracker-table" id="task-tracker">
         <thead>
           <tr>
@@ -57,61 +68,40 @@
             <th>Comments</th>
           </tr>
         </thead>
-        <tbody id="task-rows">
-          <tr>
-            <td>Start Work</td>
-            <td>09:00 AM</td>
-            <td>12:00 PM</td>
-            <td>3 hours</td>
-            <td>Started working on project X</td>
-          </tr>
-        </tbody>
+        <tbody id="task-rows"></tbody>
       </table>
-
-
     </section>
+  </main>
 
-    <script>
-      // 2. Create a new Date object containing the current date and time
-      const today = new Date();
+  <footer>
+    <p>&copy; 2026 Time Tracker. All rights reserved.</p>
+  </footer>
 
-      // 3. Format the date into a readable local string
-      const formattedDate = today.toLocaleDateString();
+  <!-- "Add Task" popup. add_task.js opens, validates, and closes this. -->
+  <dialog id="task-modal">
+    <form id="task-form" method="dialog">
+      <h2>Add New Task</h2>
 
-      // 4. Inject the formatted date into the HTML span tag
-      document.getElementById("current-date").textContent = formattedDate;
-    </script>
+      <label for="task-action">Action:</label>
+      <input type="text" id="task-action" required placeholder="e.g. Coding">
 
-    <footer>
-      <p>&copy; 2026 Time Tracker. All rights reserved.</p>
-    </footer>
+      <label for="task-time">Start Time:</label>
+      <input type="time" id="task-time" required>
 
-    <!-- Modal Dialog -->
-    <dialog id="task-modal">
-      <form id="task-form" method="dialog">
-        <h2>Add New Task</h2>
+      <label for="task-end-time">End Time:</label>
+      <input type="time" id="task-end-time" required>
 
-        <label for="task-action">Action:</label>
-        <input type="text" id="task-action" required placeholder="e.g. Coding">
+      <p id="duration-text">—</p>
 
-        <label for="task-time">Start Time:</label>
-        <input type="time" id="task-time" required placeholder="e.g. 09:00 AM">
+      <label for="task-comments">Comments:</label>
+      <input type="text" id="task-comments" placeholder="e.g. Started working on project X">
 
-        <label for="task-end-time">End Time:</label>
-        <input type="time" id="task-end-time" required placeholder="e.g. 12:00 PM">
-
-        <p id="duration-text">Duration</p>
-
-        <label for="task-comments">Comments:</label>
-        <input type="text" id="task-comments" placeholder="e.g. Started working on project X">
-
-        <div class="modal-buttons">
-          <button type="button" id="save-task-btn">Save</button>
-          <button type="button" id="close-modal-btn">Cancel</button>
-        </div>
-      </form>
-    </dialog>
-
+      <div class="modal-buttons">
+        <button type="button" id="save-task-btn">Save</button>
+        <button type="button" id="close-modal-btn">Cancel</button>
+      </div>
+    </form>
+  </dialog>
 </body>
 
 </html>
