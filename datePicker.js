@@ -8,5 +8,5 @@ dayPicker.addEventListener("change", function () {
 	renderTasks();
 });
 
+//On load it autoselects the Date to today() 
 dayPicker.value = toInputDate(new Date(selectedDayMs));
-loadTasks();

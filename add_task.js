@@ -37,8 +37,8 @@ function openTaskModal() {
 // the duration; otherwise just show a dash so we never display
 // a negative or nonsense length.
 function updateDurationPreview() {
-	const startMs = parseTimeInput(startTimeField.value);
-	const endMs = parseTimeInput(endTimeField.value);
+	const startMs = parseTimeInput(startTimeField.value, selectedDayMs);
+	const endMs = parseTimeInput(endTimeField.value, selectedDayMs);
 
 	if (startMs !== null && endMs !== null && endMs > startMs) {
 		durationText.textContent = formatDuration(endMs - startMs);
@@ -59,8 +59,8 @@ function updateDurationPreview() {
 function submitTask() {
 	const action = actionField.value.trim() || "Task";
 	const comments = commentsField.value.trim() || "N/A";
-	const startMs = parseTimeInput(startTimeField.value);
-	const endMs = parseTimeInput(endTimeField.value);
+	const startMs = parseTimeInput(startTimeField.value, selectedDayMs);
+	const endMs = parseTimeInput(endTimeField.value, selectedDayMs);
 
 	if (startMs === null || endMs === null || endMs <= startMs) {
 		durationText.textContent = "Pick an end time after the start time";

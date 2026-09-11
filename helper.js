@@ -55,7 +55,7 @@ function formatDuration(millis) {
 // app can do math with it (like "end minus start").
 // If the text is missing or doesn't look like a time, we return
 // null, which everywhere else reads as "no valid time yet".
-function parseTimeInput(value) {
+function parseTimeInput(value, daysMs) {
 	if (!value || !value.includes(":")) return null;
 
 	const [hoursText, minutesText] = value.split(":");
@@ -64,7 +64,7 @@ function parseTimeInput(value) {
 
 	if (Number.isNaN(hours) || Number.isNaN(minutes)) return null;
 
-	const moment = new Date();
+	const moment = new Date(daysMs);
 	moment.setHours(hours, minutes, 0, 0);
 	return moment.getTime();
 }
