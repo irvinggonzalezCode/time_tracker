@@ -43,7 +43,7 @@ function renderTasks() {
 	if (visibleTasks.length === 0) {
 		const row = tableBody.insertRow();
 		const cell = row.insertCell();
-		cell.colSpan = 5;
+		cell.colSpan = 6;
 		cell.textContent = "No tasks on this day.";
 		return;
 	}
@@ -51,6 +51,7 @@ function renderTasks() {
 	//Loop html elment creation and populates the task list
 	visibleTasks.forEach(function (task) {
 		const row = tableBody.insertRow();
+		row.dataset.taskId = task.id;
 
 		//Here is the data you would see inside of the task lists
 		const cells = [
@@ -64,6 +65,14 @@ function renderTasks() {
 		cells.forEach(function (text) {
 			row.insertCell().textContent = text;
 		});
+
+		const deleteCell = row.insertCell();
+		const deleteBtn = document.createElement("button");
+		deleteBtn.type = "button";
+		deleteBtn.className = "row-delete";
+		deleteBtn.textContent = "x";
+		deleteBtn.setAttribute("aria-label", "Delete task");
+		deleteCell.appendChild(deleteBtn);
 	});
 }
 
@@ -91,9 +100,7 @@ function removeLastTask() {
 	renderTasks();
 }
 
-function removeSelectedTask() {
-	
-}
+function removeSelectedTask() {}
 
 // saveTasks — copy the whole list into long-term browser storage
 // ----------------------------------------------------------
@@ -129,3 +136,21 @@ function loadTasks() {
 function isSameDay(millisA, millisB) {
 	return new Date(millisA).toDateString() === new Date(millisB).toDateString();
 }
+
+const tableBody = document.getElementById("task-rows");
+tableBody.addEventListener("click", function (event) {
+	const row = event.target.closest("tr");
+	if (!row) return;
+
+	const id = row.dataset.taskId;
+	if (!id) return; // the "no tasks" row has no id
+
+	if (event.target.closest(".row-delete")) {
+		tasks = tasks.filter(function (task) {
+			return task.id !== id;
+		});
+		saveTasks();
+		renderTasks();
+	}
+	console.log("ID = " + id);
+});

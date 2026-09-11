@@ -508,3 +508,32 @@ dialog h2 {
   font-size: 13px;
   color: #8fbecd;
 }
+
+/*Delete CSS*/
+.row-delete {
+  padding: 2px 8px;
+  font-size: 18px;
+  line-height: 1;
+  color: #9db4bc;
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+tbody tr:hover .row-delete,
+.row-delete:focus-visible {
+  opacity: 1;
+}
+
+.row-delete:hover {
+  color: #ffffff;
+  background-color: var(--red);
+}
+
+.row-delete:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
