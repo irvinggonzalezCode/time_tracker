@@ -11,6 +11,7 @@
 // whole time the app runs, so looking each up a single time is
 // enough (and faster than searching the page again and again).
 const taskModal = document.getElementById("task-modal");
+const addTaskDateTxt = document.getElementById("add-task-date");
 const openModalBtn = document.getElementById("add-task");
 const closeModalBtn = document.getElementById("close-modal-btn");
 const saveTaskBtn = document.getElementById("save-task-btn");
@@ -25,6 +26,7 @@ const commentsField = document.getElementById("task-comments");
 // form.reset() wipes whatever was typed last time, and we
 // reset the duration line to a dash so old numbers don't linger.
 function openTaskModal() {
+	addTaskDateTxt.textContent = "Add New Task for " + formatMillisToDate(selectedDayMs);
 	document.getElementById("task-form").reset();
 	durationText.textContent = "—";
 	taskModal.showModal();

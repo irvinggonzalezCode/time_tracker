@@ -14,6 +14,7 @@
 // giant number like 1757437200000. People don't read that. We
 // hand that number to the browser's built-in date tool and ask
 // for "hour and minute with AM/PM", so we get back "9:05 AM".
+//input mills 1757437200000 to 12:00AM
 function formatClock(millis) {
 	return new Date(millis).toLocaleTimeString("en-US", {
 		hour: "numeric",
@@ -78,6 +79,16 @@ function formatToday() {
 	});
 }
 
+// formatMillisToDate - Millis to string date ->  "September 9, 2026"
+function formatMillisToDate(millis) {
+	const d = new Date(millis);
+	const formatted = d.toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	});
+	return formatted;
+}
 
 /** Formats a Date as "YYYY-MM-DD", the only format a date input accepts. */
 function toInputDate(date) {

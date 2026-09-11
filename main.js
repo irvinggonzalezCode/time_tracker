@@ -13,9 +13,4 @@
    ============================================================ */
 
 document.getElementById("current-date").textContent = formatToday();
-
 loadTasks();
-
-document
-	.getElementById("remove-task")
-	.addEventListener("click", removeLastTask);

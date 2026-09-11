@@ -88,17 +88,6 @@ function addTask(task) {
 	renderTasks();
 }
 
-// removeLastTask — undo the most recently added task
-// -------------------------------------------------
-// This is what the "Remove Task" button does. If the list is
-// already empty, there's nothing to remove, so we quietly do
-// nothing.
-function removeLastTask() {
-	if (tasks.length === 0) return;
-	tasks.pop();
-	saveTasks();
-	renderTasks();
-}
 
 function removeSelectedTask() {}
 
