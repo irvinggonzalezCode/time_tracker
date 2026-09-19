@@ -17,6 +17,7 @@ const express = require("express");
 // Build one fresh "app" — this is the kitchen itself. Every
 // route you define below gets attached to this same app.
 const app = express();
+app.use();
 
 // The "door number" this server listens on. Many programs can
 // run on your computer at once; each one picks its own port so
@@ -31,7 +32,16 @@ const PORT = 3000;
 //     and hand back.
 app.get("/", (req, res) => {
 	// Put text on the plate and send it out the door.
-	res.send("Hello from the Time Tracker backend!");
+   res.json({ status: "ok", message: "some text here" , testBoy: "testMan"});
+
+});
+
+app.get("/tasks", (req, res) => {
+   const items = [
+  { id: 1, name: "first" },
+  { id: 2, name: "second" }
+];
+   res.json(items);
 });
 
 // Actually open the kitchen for business. Nothing above this
